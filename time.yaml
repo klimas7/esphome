@@ -1,6 +1,6 @@
 esphome:
   on_boot:
-    - priority: -200.0
+    - priority: 150
       then:
         - logger.log: "On boot _1_"
         - ds1307.read_time:
