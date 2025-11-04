@@ -1,12 +1,12 @@
 esphome:
   on_boot:
-    - priority: 300
+    - priority: 300 #Before then network is initialize
       then:
         - logger.log: "On boot _1_"
         - ds1307.read_time:
-        - delay: 30s
+        - delay: 10s
         - logger.log: "On boot _2_"
-        - script.execute: time_test
+        - script.execute: on_boot_time_check
 
 time:
   - platform: ds1307
@@ -29,6 +29,10 @@ time:
       then:
         - logger.log: "SNTP: Clock was synchronize"
         - ds1307.write_time:
+        - lambda: |-
+            char buffer[1];
+            sprintf(buffer, "U");
+            id(time_sync).publish_state(buffer);
     update_interval: 15min
 
 text_sensor:
@@ -37,10 +41,10 @@ text_sensor:
     name: "Time is sync"
 
 script:
-  - id: time_test
+  - id: on_boot_time_check
     then:
       - lambda: |-
-          ESP_LOGI("time_test", "%s", "_1_");
+          ESP_LOGI("on_boot_time_check", "%s", "_1_");
 
           auto t_d = id(ds1307_time).now();
           auto t_s = id(sntp_time).now();
@@ -53,8 +57,8 @@ script:
             id(light_01).turn_on().perform();
           }
 
-          ESP_LOGI("time_test", "%s %s", "_2_1_", t_d.is_valid() ? "valid" : "no valid");
-          ESP_LOGI("time_test", "%s %s", "_2_2_", t_s.is_valid() ? "valid" : "no valid");
+          ESP_LOGI("on_boot_time_check", "%s %s", "_2_1_", t_d.is_valid() ? "valid" : "no valid");
+          ESP_LOGI("on_boot_time_check", "%s %s", "_2_2_", t_s.is_valid() ? "valid" : "no valid");
           
-          ESP_LOGI("time_test", "%s %d %d", "_3_1_", t_d.hour, t_d.minute);
-          ESP_LOGI("time_test", "%s %d %d", "_3_2_", t_s.hour, t_s.minute);
+          ESP_LOGI("on_boot_time_check", "%s %d %d", "_3_1_", t_d.hour, t_d.minute);
+          ESP_LOGI("on_boot_time_check", "%s %d %d", "_3_2_", t_s.hour, t_s.minute);
