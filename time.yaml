@@ -35,3 +35,26 @@ text_sensor:
   - platform: template
     id: time_sync
     name: "Time is sync"
+
+script:
+  - id: time_test
+    then:
+      - lambda: |-
+          ESP_LOGI("time_test", "%s", "_1_");
+
+          auto t_d = id(ds1307_time).now();
+          auto t_s = id(sntp_time).now();
+
+          if (t_d.is_valid()) {
+
+            int h = t_d.hour;
+            int m = t_d.minute;
+
+            id(light_01).turn_on().perform();
+          }
+
+          ESP_LOGI("time_test", "%s %s", "_2_1_", t_d.is_valid() ? "valid" : "no valid");
+          ESP_LOGI("time_test", "%s %s", "_2_2_", t_s.is_valid() ? "valid" : "no valid");
+          
+          ESP_LOGI("time_test", "%s %d %d", "_3_1_", t_d.hour, t_d.minute);
+          ESP_LOGI("time_test", "%s %d %d", "_3_2_", t_s.hour, t_s.minute);
