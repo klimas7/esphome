@@ -1,0 +1,18 @@
+time:
+  - platform: ds1307
+    id: ds1307_time
+    on_time_sync:
+      then:
+        - logger.log: "DS1307: Clock was synchronize"
+    update_interval: never
+  - platform: sntp
+    id: sntp_time
+    timezone: Europe/Warsaw
+    servers:
+      - ntp1.tp.pl
+      - ntp2.tp.pl
+    on_time_sync:
+      then:
+        - logger.log: "SNTP: Clock was synchronize"
+        - ds1307.write_time:
+    update_interval: 15min
