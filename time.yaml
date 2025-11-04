@@ -49,14 +49,6 @@ script:
           auto t_d = id(ds1307_time).now();
           auto t_s = id(sntp_time).now();
 
-          if (t_d.is_valid()) {
-
-            int h = t_d.hour;
-            int m = t_d.minute;
-
-            id(light_01).turn_on().perform();
-          }
-
           ESP_LOGI("on_boot_time_check", "%s %s", "_2_1_", t_d.is_valid() ? "valid" : "no valid");
           ESP_LOGI("on_boot_time_check", "%s %s", "_2_2_", t_s.is_valid() ? "valid" : "no valid");
           
