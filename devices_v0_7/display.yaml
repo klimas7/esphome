@@ -112,12 +112,12 @@ display:
           it.rectangle(0, 0, 126, 15);
           it.printf(64,11, id(size_10), TextAlign::BASELINE_CENTER, "bone IO");
           
-          it.printf(4, 37, id(size_10), TextAlign::BASELINE_LEFT ,"Time:");
+          it.printf(4, 25, id(size_10), TextAlign::BASELINE_LEFT ,"Time:");
           auto time = id(ds1307_time).now();
           if (time.is_valid()) {
-            it.printf(64, 37, id(size_10), TextAlign::BASELINE_RIGHT, "%02d:%02d:%02d", time.hour, time.minute, time.second);
+            it.printf(124, 25, id(size_10), TextAlign::BASELINE_RIGHT, "%02d:%02d:%02d", time.hour, time.minute, time.second);
           } else {
-            it.printf(64, 37, id(size_10), TextAlign::BASELINE_RIGHT, "--:--:--");
+            it.printf(124, 25, id(size_10), TextAlign::BASELINE_RIGHT, "--:--:--");
           }
 
       # additional pages should be defined between the first and last page
