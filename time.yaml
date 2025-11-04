@@ -4,6 +4,10 @@ time:
     on_time_sync:
       then:
         - logger.log: "DS1307: Clock was synchronize"
+        - lambda: |-
+            char buffer[1];
+            sprintf(buffer, "S");
+            id(time_sync).publish_state(buffer);
     update_interval: never
   - platform: sntp
     id: sntp_time
@@ -16,3 +20,8 @@ time:
         - logger.log: "SNTP: Clock was synchronize"
         - ds1307.write_time:
     update_interval: 15min
+
+text_sensor:
+  - platform: template
+    id: time_sync
+    name: "Time is sync"

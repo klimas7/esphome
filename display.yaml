@@ -121,9 +121,9 @@ display:
           it.printf(4, 25, id(size_10), TextAlign::BASELINE_LEFT ,"Time:");
           auto time = id(ds1307_time).now();
           if (time.is_valid()) {
-            it.printf(124, 25, id(size_10), TextAlign::BASELINE_RIGHT, "%02d:%02d:%02d", time.hour, time.minute, time.second);
+            it.printf(124, 25, id(size_10), TextAlign::BASELINE_RIGHT, "%02d:%02d:%02d %s", time.hour, time.minute, time.second, id(time_sync).state.c_str());
           } else {
-            it.printf(124, 25, id(size_10), TextAlign::BASELINE_RIGHT, "--:--:--");
+            it.printf(124, 25, id(size_10), TextAlign::BASELINE_RIGHT, "--:--:-- %s", id(time_sync).state.c_str());
           }
           it.printf(4, 37, id(size_10), TextAlign::BASELINE_LEFT, "CZ last on:");
           it.printf(124, 37, id(size_10), TextAlign::BASELINE_RIGHT, "%s", id(cz_last_on).state.c_str());
