@@ -35,6 +35,12 @@ text_sensor:
     lambda: |-
       return id(eth).get_ip_addresses().empty() ? "Unset" : id(eth).get_ip_addresses()[0].str();
     update_interval: 60s
+  - platform: template
+    id: cz_last_on
+    name: "CZ last on"
+  - platform: template
+    id: cz_last_off
+    name: "CZ last off"
 
 script:
   - id: screensaver_script
@@ -119,6 +125,11 @@ display:
           } else {
             it.printf(124, 25, id(size_10), TextAlign::BASELINE_RIGHT, "--:--:--");
           }
+          it.printf(4, 37, id(size_10), TextAlign::BASELINE_LEFT, "CZ last on:");
+          it.printf(124, 37, id(size_10), TextAlign::BASELINE_RIGHT, "%s", id(cz_last_on).state.c_str());
+          
+          it.printf(4, 49, id(size_10), TextAlign::BASELINE_LEFT, "CZ last off:");
+          it.printf(124, 49, id(size_10), TextAlign::BASELINE_RIGHT, "%s", id(cz_last_off).state.c_str());
 
       # additional pages should be defined between the first and last page
       - id: last_page
