@@ -54,12 +54,12 @@ script:
 
 esphome:
   on_boot:
-    priority: 0
-    then:
-      - display.page.show: first_page
-      - component.update: ip_address
-      - component.update: oled_display
-      - script.execute: screensaver_script
+    - priority: -200
+      then:
+        - display.page.show: first_page
+        - component.update: ip_address
+        - component.update: oled_display
+        - script.execute: screensaver_script
 
 binary_sensor:
   - platform: gpio

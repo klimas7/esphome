@@ -1,3 +1,13 @@
+esphome:
+  on_boot:
+    - priority: -200.0
+      then:
+        - logger.log: "On boot _1_"
+        - ds1307.read_time:
+        - delay: 30s
+        - logger.log: "On boot _2_"
+        - script.execute: time_test
+
 time:
   - platform: ds1307
     id: ds1307_time
