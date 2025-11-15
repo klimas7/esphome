@@ -133,7 +133,7 @@ display:
           auto t_on = id(cz_last_on).state.c_str();
           auto t_off = id(cz_last_off).state.c_str();
           it.printf(4, 37, id(size_10), TextAlign::BASELINE_LEFT, "CZ on %s off %s", t_on, t_off);
-          it.printf(4, 49, id(size_10), TextAlign::BASELINE_LEFT, "CO 0: %d 1: %d", id(co_states)[0], id(co_states)[0]);
+          it.printf(4, 49, id(size_10), TextAlign::BASELINE_LEFT, "CO 0: %d 1: %d", id(co_states)[0], id(co_states)[1]);
 
       # additional pages should be defined between the first and last page
       - id: last_page
