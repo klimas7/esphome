@@ -43,9 +43,9 @@ text_sensor:
     name: "CZ last off"
 
 globals:
-  - id: co_states
-    type: bool[2]
-    initial_value: "{false, false}"
+  - id: sensors_states
+    type: bool[3]
+    initial_value: "{false, false, false}"
 
 script:
   - id: screensaver_script
@@ -130,10 +130,14 @@ display:
           } else {
             it.printf(124, 25, id(size_10), TextAlign::BASELINE_RIGHT, "--:--:-- %s", id(time_sync).state.c_str());
           }
+          auto s1_state = id(sensors_states)[0] ? "on" : "off"
+          auto s2_state = id(sensors_states)[1] ? "on" : "off"
+          auto s3_state = id(sensors_states)[2] ? "on" : "off"
           auto t_on = id(cz_last_on).state.c_str();
           auto t_off = id(cz_last_off).state.c_str();
-          it.printf(4, 37, id(size_10), TextAlign::BASELINE_LEFT, "CZ on %s off %s", t_on, t_off);
-          it.printf(4, 49, id(size_10), TextAlign::BASELINE_LEFT, "CO 0: %d 1: %d", id(co_states)[0], id(co_states)[1]);
+          
+          it.printf(4, 37, id(size_10), TextAlign::BASELINE_LEFT, "CZ %s|%s|%s", s3_state, t_on, t_off);
+          it.printf(4, 49, id(size_10), TextAlign::BASELINE_LEFT, "CO 0: %s 1: %s", s1_state, s2_state);
 
       # additional pages should be defined between the first and last page
       - id: last_page
