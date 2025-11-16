@@ -130,9 +130,9 @@ display:
           } else {
             it.printf(124, 25, id(size_10), TextAlign::BASELINE_RIGHT, "--:--:-- %s", id(time_sync).state.c_str());
           }
-          auto s1_state = id(sensors_states)[0] ? "on" : "off"
-          auto s2_state = id(sensors_states)[1] ? "on" : "off"
-          auto s3_state = id(sensors_states)[2] ? "on" : "off"
+          auto s1_state = id(sensors_states)[0] ? "on" : "off";
+          auto s2_state = id(sensors_states)[1] ? "on" : "off";
+          auto s3_state = id(sensors_states)[2] ? "on" : "off";
           auto t_on = id(cz_last_on).state.c_str();
           auto t_off = id(cz_last_off).state.c_str();
           
